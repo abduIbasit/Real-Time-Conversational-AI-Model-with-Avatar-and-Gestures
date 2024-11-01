@@ -29,9 +29,22 @@ Run the application with the following command:
 ```bash
 uvicorn main:app --host 0.0.0.0 --port 8000 
 ```
-The application would be accessible via ws://localhost:8000/ws/conversation.
-Note: You can specify different host and port.
+The application would be accessible at ws://localhost:8000/ws/conversation. Note: You can specify different host and port.
 
+### 4. Interact with the Application
+
+Interact with the application via any websocket client. Request expects the following parameters:
+*session_id: required* - A session id for conversation history management.
+*prompt: optional* - A prompt text which the model responds to.
+*audio: optional* - An audio blob or voice recording which the model responds to.
+Note: One of either prompt or audio needs to be sent but not both. Here is an example request body:
+```json
+{
+"session_id": "xgsj5207dcjdpkql1",
+"prompt": "What are large language models",
+"audio": Binary
+}
+```
 
 ## Setup Instructions for Running on Docker
 
@@ -47,6 +60,6 @@ docker build -t conversational-ai-app .
 docker run -p 8000:8000 conversational-ai-app
 ```
 
-After running the container, the application would be accessible via ws://localhost:8000/ws/conversation.
+After running the container, the application would be accessible at ws://localhost:8000/ws/conversation.
 
 Read the application development documentation here: [docs](https://github.com/abduIbasit/Real-Time-Conversational-AI-Model-with-Avatar-and-Gestures/blob/master/docs/DOCUMENTATION.md)
