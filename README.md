@@ -3,7 +3,7 @@
 
 ## Setup Instructions for Running the Application Locally
 
-## Set Up the Environment
+### 1. Set Up the Environment
 
 Ensure you have Python 3.8 or higher installed.
 
@@ -14,7 +14,7 @@ python -m venv env
 source env/bin/activate
 ```
 
-## Install Dependencies:
+### 2. Install Dependencies:
 
 Run the below command from the directory where the requirements.txt is to install the packages
 
@@ -22,7 +22,7 @@ Run the below command from the directory where the requirements.txt is to instal
 pip install -r requirements.txt
 ```
 
-## Run the Application
+### 3. Run the Application
 
 Run the application with the following command:
 
