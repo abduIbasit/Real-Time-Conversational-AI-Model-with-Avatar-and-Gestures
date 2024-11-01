@@ -47,6 +47,9 @@ async def conversation_endpoint(websocket: WebSocket):
                 temp_file_path = stt_service.save_audio_to_temp_file(audio_data)
                 # Transcribe the audio
                 transcribed_text = stt_service.speech_to_text(temp_file_path)
+                await websocket.send_text(
+                    json.dumps({"transcribed_text": transcribed_text})
+                )
                 # Remove the temporary audio file
                 os.remove(temp_file_path)
 
