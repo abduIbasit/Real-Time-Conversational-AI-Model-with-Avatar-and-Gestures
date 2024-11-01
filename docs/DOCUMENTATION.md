@@ -17,9 +17,9 @@ The application's core features were implemented as follows;
 
 * **Avatar Demonstration**: D-ID developer API was used for avatar demonstration. D-ID API creates photorealistic videos using generative AI. Two methods were defined to interact with the avatar video creation endpoints;
 
-`generate_clip`: Initiates the avatar video creation, vocalizing the text response of the language model with perfect lip sync and gesture. 
+  `generate_clip`: Initiates the avatar video creation, vocalizing the text response of the language model with perfect lip sync and gesture. 
 
-`get_video`: A custom polling service that periodically checks the video generation status and provides the video URL once it’s ready. 
+  `get_video`: A custom polling service that periodically checks the video generation status and provides the video URL once it’s ready. 
 
 
 The video creation time typically varies between 30-50 seconds, depending on the length of the text response.
@@ -38,11 +38,13 @@ The model selections for powering various tasks in the application are summarize
 
 I bear a personal opinion that using developer APIs for small-scale applications with limited users offers cost and resource savings compared to custom GPU deployments. For larger user bases, investing in custom deployments with GPU support may provide better control and scalability.
 
+This application runs on a CPU machine.
+
 ## Conversation Flow
 
 The conversation flow begins with the user inputs either text or voice. Text inputs are sent directly to the large language model, which processes the message to generate a contextually relevant response. For voice inputs, the application transcribes the audio into text using speech-to-text functionality before sending it to the LLM. The generated response from the LLM is sent to the user and also passed to the avatar demonstration module, which creates a synchronized video with lip-sync and gestures, delivering a dynamic and engaging interaction experience.
 
-*I developed a client-side application using React JS to provide a user interface for interacting with the application which can be found here. **Caveat** My frontend development skill is not the best.*
+*I developed a client-side application using React JS to provide a user interface for interacting with the application which can be found here. **Caveat:** My frontend development skill is not the best.*
 
 ## Challenges Encountered
 
