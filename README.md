@@ -1,7 +1,14 @@
 # Real-Time-Conversational-AI-Model-with-Avatar-and-Gestures
 
+Run the application locally using any of the channels described here. An essential initial step before any of the steps outlined is cloning this repository and checking into the project directory by entering in your terminal:
 
-## Setup Instructions for Running Locally
+```bash
+git clone https://github.com/abduIbasit/Real-Time-Conversational-AI-Model-with-Avatar-and-Gestures.git
+cd Real-Time-Conversational-AI-Model-with-Avatar-and-Gestures
+```
+
+
+## Setup Instructions for Running with Python
 
 #### 1. Set Up the Environment
 
@@ -62,6 +69,26 @@ Response body is a text response from the model and an avatar demonstration
 ![demo](https://github.com/user-attachments/assets/a0c803ff-1214-4228-97b2-30b0a004e74c)
 
 Alternatively, interact with the application using the frontend application I developed by cloning the repo [https://github.com/abduIbasit/Real-Time-Conversational-AI-Model-with-Avatar-and-Gestures-Frontend.git](https://github.com/abduIbasit/Real-Time-Conversational-AI-Model-with-Avatar-and-Gestures-Frontend.git)
+
+## Setup Instructions for Running with Make
+
+To run with `make`, ensure you have `make` and `python` installed on your computer.
+
+- Simply set up and run the application in one go by entering this command in your terminal:
+```bash
+make setup
+```
+
+- Stop the application with:
+```bash
+make stop
+```
+
+- Clean up and remove the virtual environment with:
+```bash
+make clean
+```
+
 
 ## Setup Instructions for Running on Docker
 
