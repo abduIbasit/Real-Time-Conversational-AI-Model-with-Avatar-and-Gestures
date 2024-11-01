@@ -3,7 +3,7 @@
 
 ## Overview
 
-This application is a sophisticated conversational AI model with advanced capabilities for text generation, speech recognition, speech synthesis, natural language understanding, contextual awareness, and dynamic avatar representation with lip-sync and gestures. Leveraging state-of-the-art AI models, particularly transformers and stable diffusion, the application allows users to interact through either text input or voice. The model processes the user inputs, generate contextually relevant response instantly and deliver a compelling, animated avatar interaction.
+This application is a sophisticated conversational AI model with advanced capabilities for text generation, speech recognition, speech synthesis, natural language understanding, contextual awareness, and dynamic avatar representation with perfect lip-sync and gestures. Leveraging state-of-the-art AI models, particularly transformers and stable diffusion, the application allows users to interact through either text input or voice via a websocket connection for real time communication. The model processes the user inputs, generate contextually relevant response instantly and deliver a compelling, animated avatar interaction.
 
 ## Capabilities Implementation
 
@@ -57,4 +57,4 @@ I deployed both the conversational AI WebSocket service and the frontend applica
 
 ## Conclusion
 
-The application successfully fulfills its primary objectives, demonstrating capabilities in text generation, speech recognition, and avatar interaction as specified. This foundational functionality sets a strong base for further development, where additional features and enhancements could make the application even more versatile and robust. With continued development, the application has the potential to deliver a more immersive and interactive user experience, adapting to evolving requirements and providing scalable solutions for broader use cases.
+The application successfully fulfills its primary objectives, demonstrating capabilities in text generation, speech recognition, and avatar interaction using real-time communication via websocket connection. This foundational functionality sets a strong base for further development, where additional features and enhancements could make the application even more versatile and robust. With continued development, the application has the potential to deliver a more immersive and interactive user experience, adapting to evolving requirements and providing scalable solutions for broader use cases.
