@@ -49,4 +49,4 @@ docker run -p 8000:8000 conversational-ai-app
 
 After running the container, the application would be accessible via ws://localhost:8000/ws/conversation.
 
-Read the application development documentation here: [docs](https://github.com/abduIbasit/Real-Time-Conversational-AI-Model-with-Avatar-and-Gestures/docs/DOCUMENTATION.md)
+Read the application development documentation here: [docs](https://github.com/abduIbasit/Real-Time-Conversational-AI-Model-with-Avatar-and-Gestures/blob/master/docs/DOCUMENTATION.md)
