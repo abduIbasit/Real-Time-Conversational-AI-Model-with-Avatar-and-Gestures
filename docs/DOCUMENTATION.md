@@ -3,43 +3,51 @@
 
 ## Overview
 
-The application is a converstional model with capabilities of text generation, speech recognition, speech synthesis, natural language understanding, context awareness, and avatar representation/demonstration with lip sync and gestures. The app uses state-of-the-art AI models, particularly transformers and stable diffusion model. 
-
-A user can interact with the model either by text input or voice, the model processes the user message, understand it and generate a contextually relevant response with avatar representation, with minimal latency
+This application is a sophisticated conversational AI model with advanced capabilities for text generation, speech recognition, speech synthesis, natural language understanding, contextual awareness, and dynamic avatar representation with lip-sync and gestures. Leveraging state-of-the-art AI models, particularly transformers and stable diffusion, the application allows users to interact through either text input or voice. The model processes the user inputs, generate contextually relevant response instantly and deliver a compelling, animated avatar interaction.
 
 ## Capabilities Implementation
 
-The application capabilities were implemented as thus;
+The application's core features were implemented as follows;
 
-* **Text Generation**: `llama3-8b-8192` was used for text generation/processing. Llama, as a state of the art model excels at natural language understanding and generating response. Langchain framework was used to configure the model and set up a conversation chain. A system prompt was defined to guide the model behaviour. An in-memory conversation store was created using python dictionary (this would typically be replaced with an in-memory database like Redis for enterprise scale usage, although the dictionary works exceptionally well for this prototype), the dictionary manages conversation history by appending messages to provided session_id. Groq API was used to serve the `llama3-8b-8192` model due to it incredibly fast generation throughput and low-latency performance. Groq is reported to serve LLM and other transformer-based models using LPU (Language Processing Unit) in place of GPU.
+* **Text Generation**: `llama3-8b-8192` model was used for text responses generation. Llama, as a state of the art model excels at natural language understanding and generating relevant response. Langchain framework was used to configure the model and set up a conversation chain, where a predefined system prompt guide the model responses and behaviour. An in-memory conversation store, managed via a Python dictionary (which could be replaced by Redis for scaling), appends messages to the session ID to track conversation history. The `Groq API` serves the model due to its high throughput and low-latency performance, enabling quick and efficient text generation. *Groq is reported to serve LLM and other transformer-based models using LPU (Language Processing Unit) in place of GPU.*
   
-* **Speech-to-text**: `whisper-large-v3-turbo` was used for speech to text functionality. `whisper-large-v3-turbo` performs well in understanding speech and transcribing to text. Groq API was again used to serve the whisper model for transcription, at lightning speed. The transcribed text is passed into the text generation service as input prompt for which the text generation model `llama3-8b-8192` generates a response for.
+* **Speech-to-text**: The `whisper-large-v3-turbo` model handles the transcription of voice input to text. Known for its accuracy in speech recognition, this model is also served through the `Groq API`, which ensures low latency in converting spoken input to text. The transcribed text is then processed by the `llama3-8b-8192` model to generate a relevant response.
 
-* **Text-to-speech**: Although, this functionality was eventually removed as a standalone service from the application, a text-to-speech was created to synthesize speech from text. Elevenlabs API was used for synthesizing speech/voiceover for text. The functionality was removed in order to conserve resource usage and stick to using a single service which combines speech synthesis and avatar demonstration.
+* **Text-to-speech**: Although, this functionality was eventually removed as a standalone service from the application in order to conserve resource usage and stick to using a single service which combines speech synthesis and avatar demonstration. Elevenlabs API was used for synthesizing speech from text.
 
 * **Avatar Demonstration**: D-ID developer API was used for avatar demonstration. D-ID API creates photorealistic videos using generative AI. Two methods were defined to interact with the avatar video creation endpoints;
 
-`generate_clip`: to start the creation of avatar video clip and vocalising the text response of the language model with perfect lip sync and gesture. 
+`generate_clip`: Initiates the avatar video creation, vocalizing the text response of the language model with perfect lip sync and gesture. 
 
-`get_video`: a custom polling service to poll the video creation status intermittently and update the server response with the created video url when ready.
+`get_video`: A custom polling service that periodically checks the video generation status and provides the video URL once it’s ready. 
 
-The video creation duration varies according to the text length and on average takes between 30-50 seconds.
+
+The video creation time typically varies between 30-50 seconds, depending on the length of the text response.
 
 
 ## Model Choice Decision Table
 
-The choice decision for the models powering the application is described in the following table
+The model selections for powering various tasks in the application are summarized below, with justifications for each choice.
 
-|                            | Choice                                   | Alternative                                            | Reason for choice                               |
-| -------------------------- |:----------------------------------------:| ------------------------------------------------------:|-------------------------------------------------|
-| Large Language Models      | `llama3-8b-8192` with Groq API           | `llama3-8b-8192` with transformers library             | `llama3-8b-8192` remains my choice model however the model serving was made with Groq API due to unavailable GPU resource and user scale of the application
-| Speech-to-text             | `whisper-large-v3-turbo` with Groq API   | `whisper-large-v3-turbo` with transformers library     |
-| Text-to-speech             | Elevenlabs API                           | `myshell-ai/MeloTTS-English` with transformers library |
+| Task                       | Choice                                   | Alternative                                            | Reason for choice                               |
+| -------------------------- |----------------------------------------  | ------------------------------------------------------ |-------------------------------------------------|
+| Text generation/LLM        | `llama3-8b-8192` with Groq API           | `llama3-8b-8192` with Transformers library             | Chose `llama3-8b-8192` + Groq API due to GPU unavailability and the application’s user scale. `llama3-8b-8192` + text streaming implementation using Transformers library provides a scalable and efficient alternative.|
+| Speech-to-text             | `whisper-large-v3-turbo` with Groq API   | `whisper-large-v3-turbo` with Transformers library     | Similar to the LLM decision, `whisper-large-v3-turbo` is preferred with Groq API, balancing performance and scalability in the absence of GPU hardware.
+| Text-to-speech             | Elevenlabs API                           | `myshell-ai/MeloTTS-English` with Transformers library | Due to GPU limitations and the application's scale, ElevenLabs API was chosen for its high-quality TTS capabilities, though open-source ASR models would work well with GPU hardware.
+| Avatar Demonstration       | D-ID API                                 | `LivePortrait` with custom code                        | Similar reason as priors applies. Due to GPU constraints for running the LivePortait code which performs on same scale as D-ID, the D-ID API was used instead
 
-I hold a personal opinion that developer APIs for AI application development is a considerable choice when user population is minimal
+I bear a personal opinion that using developer APIs for small-scale applications with limited users offers cost and resource savings compared to custom GPU deployments. For larger user bases, investing in custom deployments with GPU support may provide better control and scalability.
 
 ## Conversation Flow
 
+The conversation flow begins with the user inputs either text or voice. Text inputs are sent directly to the large language model, which processes the message to generate a contextually relevant response. For voice inputs, the application transcribes the audio into text using speech-to-text functionality before sending it to the LLM. The generated response from the LLM is sent to the user and also passed to the avatar demonstration module, which creates a synchronized video with lip-sync and gestures, delivering a dynamic and engaging interaction experience.
+
+*I developed a client-side application using React JS to provide a user interface for interacting with the application which can be found here. **Caveat** My frontend development skill is not the best.*
+
 ## Challenges Encountered
 
+1. **Real-Time Avatar Video Streaming:** A challenge I faced was implementing real-time streaming for the generated avatar video from D-ID. The setup required a WebRTC connection, which is typically more adaptable when managed from the client-side. To address this, I devised a custom solution by building a polling service that regularly checks the video generation status from the D-ID API endpoint and sends the video url immediately upon creation, allowing for near-real-time updates. Collaborating with a frontend engineer to implement true streaming would yield a more seamless experience
+
 ## Conclusion
+
+The application successfully fulfills its primary objectives, demonstrating capabilities in text generation, speech recognition, and avatar interaction as specified. This foundational functionality sets a strong base for further development, where additional features and enhancements could make the application even more versatile and robust. With continued development, the application has the potential to deliver a more immersive and interactive user experience, adapting to evolving requirements and providing scalable solutions for broader use cases.
