@@ -17,12 +17,13 @@ async def conversation_endpoint(websocket: WebSocket):
             request_data = await websocket.receive_text()
             data = json.loads(request_data)
 
+            # Retrieve session_id from request parameter to track chat history
             session_id = data.get("session_id")
             if not session_id:
                 await websocket.send_text(json.dumps({"error": "Missing session_id"}))
                 break
 
-            # Check if the request contains text or audio
+            # Check if the request contains text or audio(voice recording)
             if "prompt" in data:
 
                 prompt = data.get("prompt")
@@ -32,24 +33,17 @@ async def conversation_endpoint(websocket: WebSocket):
                 await websocket.send_text(json.dumps({"text": response_text}))
 
                 # Generate avatar clip for AI response
-                avatar_clip_id = generate_clip(response_text)
-                video_url = get_video(avatar_clip_id)
-                await websocket.send_text(json.dumps({"video_url": video_url}))
+                # avatar_clip_id = generate_clip(response_text)
+                # # Poll video generation and send the url to the client when ready
+                # video_url = get_video(avatar_clip_id)
+                # await websocket.send_text(json.dumps({"video_url": video_url}))
 
-                # Convert response text to audio
-                # audio_bytes = tts_service.text_to_audio(response_text)
-                # await websocket.send_bytes(audio_bytes)
-
+            # Process audio/voice recording
             elif "audio" in data:
-                # Audio processing logic
-                audio_data = data.get("audio")
-                if not audio_data:
-                    await websocket.send_text(
-                        json.dumps({"text": "Audio data is empty"})
-                    )
-                    continue
 
-                # Save the audio to a temporary file
+                audio_data = data.get("audio")
+
+                # Decode base64 voice recording from client and save to a temporary file
                 temp_file_path = save_audio_to_temp_file(audio_data)
                 # Transcribe the audio
                 transcribed_text = speech_to_text(temp_file_path)
@@ -63,14 +57,16 @@ async def conversation_endpoint(websocket: WebSocket):
                 await websocket.send_text(json.dumps({"text": response_text}))
 
                 # Generate avatar clip for AI response
-                avatar_clip_id = generate_clip(response_text)
-                video_url = get_video(avatar_clip_id)
-                await websocket.send_text(json.dumps({"video_url": video_url}))
+                # avatar_clip_id = generate_clip(response_text)
+                # video_url = get_video(avatar_clip_id)
+                # await websocket.send_text(json.dumps({"video_url": video_url}))
 
             else:
                 # Case where neither text nor audio is provided
                 await websocket.send_text(
-                    json.dumps({"text": "Invalid request: expected text or audio data"})
+                    json.dumps(
+                        {"error": "Invalid request: expected text or audio data"}
+                    )
                 )
 
     except WebSocketDisconnect:

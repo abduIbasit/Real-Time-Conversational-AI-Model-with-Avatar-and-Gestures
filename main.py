@@ -1,4 +1,3 @@
-# app/main.py
 from fastapi import FastAPI, WebSocket
 
 from websocket_routes import conversation_endpoint

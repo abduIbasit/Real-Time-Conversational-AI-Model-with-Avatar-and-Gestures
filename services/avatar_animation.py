@@ -1,15 +1,14 @@
-import json
 import time
 
 import requests
 
-from .config import settings
+from config.config import settings
 
 # Retrieve the bearer token from environment variables
 bearer_token = settings.DID_BEARER_TOKEN
 
 
-def generate_clip(input_text):
+def generate_clip(input_text: str) -> str:
     url = "https://api.d-id.com/clips"
 
     payload = {
@@ -38,14 +37,12 @@ def generate_clip(input_text):
 
     # Parse and return only the ID from the response
     res = response.json()
-    print(response)
-    print(res)
     return res["id"]
 
 
-def get_video(clip_id, interval=10, max_attempts=40):
+def get_video(clip_id: str, interval: int = 10, max_attempts: int = 40) -> str | None:
     """
-    Polls the video generation status every 5 seconds until the result_url is available or max_attempts are reached.
+    Polls the video generation status every 10 seconds until the result_url is available or max_attempts are reached.
 
     Parameters:
     - clip_id: ID of the video clip to fetch.
@@ -67,13 +64,8 @@ def get_video(clip_id, interval=10, max_attempts=40):
 
         # Check if the video generation is complete and the result_url is available
         if res.get("status") == "done" and res.get("result_url"):
-            print(f"Video generation complete. URL found! {res['result_url']}")
             return res["result_url"]
 
-        # Print the status for debugging and wait before the next attempt
-        print(
-            f"Attempt {attempt + 1}: Status - {res.get('status')}. Retrying in {interval} seconds."
-        )
         time.sleep(interval)
 
     # If max attempts are reached without getting the result_url

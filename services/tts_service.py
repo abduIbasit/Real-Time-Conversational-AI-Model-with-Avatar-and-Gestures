@@ -1,18 +1,17 @@
-# app/tts_service.py
 from tempfile import NamedTemporaryFile
 
 from elevenlabs.client import ElevenLabs
 
-from .config import settings
+from config.config import settings
 
 
 class TTSService:
     def __init__(self):
         self.client = ElevenLabs(api_key=settings.ELEVEN_API_KEY)
 
-    def text_to_audio(self, text: str) -> bytes:
+    def text_to_audio(self, text: str, voice: str) -> bytes:
         audio_gen = self.client.generate(
-            text=text, voice="Brian", model="eleven_multilingual_v2"
+            text=text, voice=voice, model="eleven_multilingual_v2"
         )
         with NamedTemporaryFile(delete=True, suffix=".mp3") as temp_audio_file:
             for chunk in audio_gen:
