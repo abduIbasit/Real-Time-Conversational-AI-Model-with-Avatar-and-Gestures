@@ -25,8 +25,9 @@ pip install -r requirements.txt
 #### 3. Set environment variables
 Set environment variables for GROQ_API and D-ID in .env file in the root directory
 
-GROQ API keys can be obtained from [https://console.groq.com/keys](https://console.groq.com/keys)
-D-ID API [https://www.d-id.com/api/](https://www.d-id.com/api/)
+- GROQ API keys can be obtained from [https://console.groq.com/keys](https://console.groq.com/keys)
+
+- D-ID API [https://www.d-id.com/api/](https://www.d-id.com/api/)
 
 #### 4. Run the Application
 
@@ -57,11 +58,6 @@ Response body is a text response from the model and an avatar demonstration
 "prompt": "What are large language models"
 }
 ```
-
-
-https://github.com/user-attachments/assets/321468cd-efd9-45ac-bc71-cf33a869e540
-
-
 
 ## Setup Instructions for Running on Docker
 
