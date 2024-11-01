@@ -1,7 +1,7 @@
 # Real-Time-Conversational-AI-Model-with-Avatar-and-Gestures
 
 
-## Setup Instructions for Running the Application Locally
+## Setup Instructions for Running Locally
 
 #### 1. Set Up the Environment
 
@@ -46,8 +46,7 @@ Note: One of either prompt or audio needs to be sent but not both. Here is an ex
 ```json
 {
 "session_id": "xgsj5207dcjdpkql1",
-"prompt": "What are large language models",
-"audio": "Binary"
+"prompt": "What are large language models"
 }
 ```
 
@@ -66,5 +65,7 @@ docker run -p 8000:8000 conversational-ai-app
 ```
 
 After running the container, the application would be accessible at ws://localhost:8000/ws/conversation.
+
+Interact with the application following the [steps](https://github.com/abduIbasit/Real-Time-Conversational-AI-Model-with-Avatar-and-Gestures/blob/master/README.md#4-interact-with-the-application)
 
 Read the application development documentation here: [docs](https://github.com/abduIbasit/Real-Time-Conversational-AI-Model-with-Avatar-and-Gestures/blob/master/docs/DOCUMENTATION.md)
