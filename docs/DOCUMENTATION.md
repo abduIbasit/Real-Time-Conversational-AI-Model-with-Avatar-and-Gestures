@@ -22,7 +22,7 @@ The application's core features were implemented as follows;
   `get_video`: A custom polling service that periodically checks the video generation status and provides the video URL once it’s ready. 
 
 
-The video creation time typically varies between 30-50 seconds, depending on the length of the text response.
+The video creation time typically varies between 20-50 seconds, depending on the length of the text response.
 
 
 ## Model Choice Decision Table
@@ -33,8 +33,8 @@ The model selections for powering various tasks in the application are summarize
 | -------------------------- |----------------------------------------  | ------------------------------------------------------ |-------------------------------------------------|
 | Text generation/LLM        | `llama3-8b-8192` with Groq API           | `llama3-8b-8192` with Transformers library             | Chose `llama3-8b-8192` + Groq API due to GPU unavailability and the application’s user scale. `llama3-8b-8192` + text streaming implementation using Transformers library provides a scalable and efficient alternative.|
 | Speech-to-text             | `whisper-large-v3-turbo` with Groq API   | `whisper-large-v3-turbo` with Transformers library     | Similar to the LLM decision, `whisper-large-v3-turbo` is preferred with Groq API, balancing performance and scalability in the absence of GPU hardware.
-| Text-to-speech             | Elevenlabs API                           | `myshell-ai/MeloTTS-English` with Transformers library | Due to GPU limitations and the application's scale, ElevenLabs API was chosen for its high-quality TTS capabilities, though open-source ASR models would work well with GPU hardware.
-| Avatar Demonstration       | D-ID API                                 | `LivePortrait` with custom code                        | Similar reason as priors applies. Due to GPU constraints for running the LivePortait code which performs on same scale as D-ID, the D-ID API was used instead
+| Text-to-speech             | Elevenlabs API                           | `myshell-ai/MeloTTS-English` with Transformers library | Due to GPU limitations and the application's scale, ElevenLabs API was chosen for its high-quality TTS capabilities, though open-source ASR models would work similarly well with GPU hardware.
+| Avatar Demonstration       | D-ID API                                 | `LivePortrait` with custom code                        | Similar reason as priors applies. Due to GPU constraints for running the LivePortait code which performs on par with D-ID, the D-ID API was utilised instead
 
 I bear a personal opinion that using developer APIs for small-scale applications with limited users offers cost and resource savings compared to custom GPU deployments. For larger user bases, investing in custom deployments with GPU support may provide better control and scalability.
 
