@@ -50,17 +50,18 @@ Interact with the application via any websocket client. Request expects the foll
 
 **Note:** One of either prompt or audio needs to be sent but not both. Here is an example request body:
 
-Response body is a text response from the model and an avatar demonstration
-
 ```json
 {
 "session_id": "xgsj5207dcjdpkql1",
 "prompt": "What are large language models"
 }
 ```
+
+Response body is a text response from the model and an avatar demonstration
+
 ![demo](https://github.com/user-attachments/assets/a0c803ff-1214-4228-97b2-30b0a004e74c)
 
-You can alternativeyly interact with the application using the frontend application I developed by cloning the repo
+Alternatively, interact with the application using the frontend application I developed by cloning the repo [https://github.com/abduIbasit/Real-Time-Conversational-AI-Model-with-Avatar-and-Gestures-Frontend.git](https://github.com/abduIbasit/Real-Time-Conversational-AI-Model-with-Avatar-and-Gestures-Frontend.git)
 
 ## Setup Instructions for Running on Docker
 
