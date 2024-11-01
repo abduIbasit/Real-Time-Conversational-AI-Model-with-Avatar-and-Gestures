@@ -58,6 +58,7 @@ Response body is a text response from the model and an avatar demonstration
 "prompt": "What are large language models"
 }
 ```
+![demo](https://github.com/user-attachments/assets/a0c803ff-1214-4228-97b2-30b0a004e74c)
 
 ## Setup Instructions for Running on Docker
 
