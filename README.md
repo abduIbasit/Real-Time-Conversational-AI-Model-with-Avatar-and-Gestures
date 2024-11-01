@@ -1,6 +1,6 @@
 # Real-Time-Conversational-AI-Model-with-Avatar-and-Gestures
 
-Run the application locally using any of the explained setups. An essential initial step before any of the steps outlined is cloning this repository and navigating to the project directory by entering in your terminal:
+Run the application locally using any of the explained setups. An essential initial step before any of the steps outlined is cloning this repository and navigating to the project directory by entering these commands in your terminal:
 
 ```bash
 git clone https://github.com/abduIbasit/Real-Time-Conversational-AI-Model-with-Avatar-and-Gestures.git
