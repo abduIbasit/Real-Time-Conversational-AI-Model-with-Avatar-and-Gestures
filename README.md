@@ -60,6 +60,8 @@ Response body is a text response from the model and an avatar demonstration
 ```
 ![demo](https://github.com/user-attachments/assets/a0c803ff-1214-4228-97b2-30b0a004e74c)
 
+You can alternativeyly interact with the application using the frontend application I developed by cloning the repo
+
 ## Setup Instructions for Running on Docker
 
 To run the application on Docker, follow the steps below.
