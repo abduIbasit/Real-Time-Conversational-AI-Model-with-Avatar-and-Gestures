@@ -44,7 +44,11 @@ This application runs on a CPU machine.
 
 The conversation flow begins with the user inputs either text or voice. Text inputs are sent directly to the large language model, which processes the message to generate a contextually relevant response. For voice inputs, the application transcribes the audio into text using speech-to-text functionality before sending it to the LLM. The generated response from the LLM is sent to the user and also passed to the avatar demonstration module, which creates a synchronized video with lip-sync and gestures, delivering a dynamic and engaging interaction experience.
 
-*I developed a client-side application using React JS to provide a user interface for interacting with the application which can be found here. **Caveat:** My frontend development skill is not the best.*
+*I developed a client-side application using React JS to provide a user interface for interacting with the application which can be accessed [here](http://34.55.139.78/). **Caveat:** My frontend development skill is not the best.*
+
+## Cloud Deployment
+
+I deployed both the conversational AI WebSocket service and the frontend application to Google Cloud Platform (GCP), utilizing a virtual machine instance I configured specifically for this purpose.
 
 ## Challenges Encountered
 
