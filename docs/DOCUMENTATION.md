@@ -22,4 +22,6 @@ The application capabilities were implemented as thus;
 
 ## Conversation Flow
 
+## Challenges Encountered
+
 ## Conclusion
