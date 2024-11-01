@@ -53,6 +53,7 @@ I deployed both the conversational AI WebSocket service and the frontend applica
 ## Challenges Encountered
 
 1. **Real-Time Avatar Video Streaming:** A challenge I faced was implementing real-time streaming for the generated avatar video from D-ID. The setup required a WebRTC connection, which is typically more adaptable when managed from the client-side. To address this, I devised a custom solution by building a polling service that regularly checks the video generation status from the D-ID API endpoint and sends the video url immediately upon creation, allowing for near-real-time updates. Collaborating with a frontend engineer to implement true streaming would yield a more seamless experience
+2. **Voice Recording on Cloud:** A slight issue is experienced with recording voice from the frontend application on the cloud deployment due to missing SSL certificate, required by browser
 
 ## Conclusion
 
