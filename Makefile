@@ -1,50 +1,63 @@
-# Define variables
-APP_NAME=my-fastapi-app
-PORT=8000
+# Makefile for setting up and running the Application
 
-# Build the Docker image
-build:
-	docker build -t $(APP_NAME) .
+# Variables
+VENV_DIR = env
+PYTHON = python3
+HOST = 0.0.0.0
+PORT = 8000
 
-# Run the Docker container
+# Make a virtual environment
+.PHONY: venv
+venv:
+	@echo "Creating virtual environment..."
+	$(PYTHON) -m venv $(VENV_DIR)
+
+# Install dependencies
+.PHONY: install
+install: venv
+	@echo "Activating virtual environment and installing dependencies..."
+	source $(VENV_DIR)/bin/activate && pip install -r requirements.txt
+
+# Set up the environment file
+.PHONY: env
+env:
+	@echo "Setting up .env file..."
+	@touch .env
+	@echo "Please add your GROQ_API and D-ID API keys to the .env file."
+
+# Run the application
+.PHONY: run
 run:
-	docker run -p $(PORT):8000 $(APP_NAME)
+	@echo "Starting the application on ws://$(HOST):$(PORT)/ws/conversation..."
+	source $(VENV_DIR)/bin/activate && uvicorn main:app --host $(HOST) --port $(PORT)
 
-# Stop the Docker container
-stop:
-	docker stop $(shell docker ps -q --filter ancestor=$(APP_NAME))
-
-# Remove the Docker container
-remove:
-	docker rm $(shell docker ps -a -q --filter ancestor=$(APP_NAME))
-
-# Clean up Docker images
+# Clean up virtual environment
+.PHONY: clean
 clean:
-	docker rmi $(APP_NAME)
+	@echo "Cleaning up the environment..."
+	rm -rf $(VENV_DIR)
 
-# Rebuild the Docker image
-rebuild: stop remove clean build run
+# Full setup and run
+.PHONY: setup
+setup: venv install env run
+	@echo "Application setup and started successfully."
 
-# Run the app in a detached mode
-start-detached:
-	docker run -d -p $(PORT):8000 $(APP_NAME)
+# Stop the app
+.PHONY: stop
+stop:
+	@echo "Stopping application (if running)..."
+	@pkill -f "uvicorn main:app" || echo "Application not running."
 
-# Show logs from the running container
-logs:
-	docker logs -f $(shell docker ps -q --filter ancestor=$(APP_NAME))
-
-# Run tests
-test:
-	pytest
-
-# Lint the code
-lint:
-	flake8 .
-
-# Format code with black
-format:
-	black .
-
-# Generate requirements.txt
-requirements:
-	pip freeze > requirements.txt
+# Help
+.PHONY: help
+help:
+	@echo "Makefile for Real-Time Conversational AI Application"
+	@echo "Usage:"
+	@echo "  make venv        - Create a virtual environment"
+	@echo "  make install     - Install dependencies in the virtual environment"
+	@echo "  make env         - Create an .env file for environment variables"
+	@echo "  make run         - Run the application with Uvicorn"
+	@echo "  make clean       - Remove the virtual environment"
+	@echo "  make setup       - Full setup (venv, install, env, run)"
+	@echo "  make stop        - Stop the application if running"
+	@echo "  make help        - Show this help message"
