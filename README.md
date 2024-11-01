@@ -22,7 +22,13 @@ Run the below command from the directory where the requirements.txt is to instal
 pip install -r requirements.txt
 ```
 
-#### 3. Run the Application
+#### 3. Set environment variables
+Set environment variables for GROQ_API and D-ID in .env file in the root directory
+
+GROQ API keys can be obtained from [https://console.groq.com/keys](https://console.groq.com/keys)
+D-ID API [https://www.d-id.com/api/](https://www.d-id.com/api/)
+
+#### 4. Run the Application
 
 Run the application with the following command:
 
@@ -31,15 +37,15 @@ uvicorn main:app --host 0.0.0.0 --port 8000
 ```
 The application would be accessible at ws://localhost:8000/ws/conversation.
 
-#### 4. Interact with the Application
+#### 5. Interact with the Application
 
 Interact with the application via any websocket client. Request expects the following parameters:
 
 ***session_id: required*** - A session id for conversation history management.
 
-**prompt: optional** - A prompt text which the model responds to.
+***prompt: optional*** - A prompt text which the model responds to.
 
-**audio: optional** - An audio blob or voice recording which the model responds to.
+***audio: optional*** - An audio blob or voice recording which the model responds to.
 
 **Note:** One of either prompt or audio needs to be sent but not both. Here is an example request body:
 
@@ -73,6 +79,6 @@ docker run -p 8000:8000 conversational-ai-app
 
 After running the container, the application would be accessible at ws://localhost:8000/ws/conversation.
 
-Interact with the application following the [step](#4-interact-with-the-application)
+Interact with the application following the [step](#5-interact-with-the-application)
 
 Read the application development documentation here: [docs](https://github.com/abduIbasit/Real-Time-Conversational-AI-Model-with-Avatar-and-Gestures/blob/master/docs/DOCUMENTATION.md)
