@@ -1,4 +1,4 @@
-import time
+import asyncio
 
 import requests
 
@@ -40,11 +40,11 @@ class AvatarAnimation:
         res = response.json()
         return res["id"]
 
-    def get_video(
-        self, clip_id: str, interval: int = 10, max_attempts: int = 40
+    async def get_video(
+        self, clip_id: str, interval: int = 30, max_attempts: int = 10
     ) -> str | None:
         """
-        Polls the video generation status every 10 seconds until the result_url is available or max_attempts are reached.
+        Polls the video generation status every 30 seconds until the result_url is available or max_attempts are reached.
 
         Parameters:
         - clip_id: ID of the video clip to fetch.
@@ -62,18 +62,23 @@ class AvatarAnimation:
         }
 
         for attempt in range(max_attempts):
-            response = requests.get(url, headers=headers)
+            await asyncio.sleep(interval)  # Non-blocking delay
+            try:
+                response = requests.get(url, headers=headers)
+                response.raise_for_status()  # Check for HTTP errors
+                res = response.json()
 
-            # Parse the JSON response
-            res = response.json()
+                if res.get("status") == "done" and res.get("result_url"):
+                    print(f"Video generation complete: {res['result_url']}")
+                    return res["result_url"]
 
-            # Check if the video generation is complete and the result_url is available
-            if res.get("status") == "done" and res.get("result_url"):
-                return res["result_url"]
+                print(f"Attempt {attempt + 1}: Status - {res.get('status')}")
 
-            time.sleep(interval)
+            except requests.exceptions.RequestException as e:
+                print(f"Attempt {attempt + 1}: Request failed with error: {e}")
+            except ValueError:
+                print("Invalid JSON response received. Skipping this attempt.")
 
-        # If max attempts are reached without getting the result_url
         print("Max attempts reached without finding the result_url.")
         return None
 
