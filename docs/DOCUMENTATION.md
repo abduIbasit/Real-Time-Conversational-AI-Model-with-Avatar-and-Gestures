@@ -9,7 +9,7 @@ This application is a sophisticated conversational AI model with advanced capabi
 
 The application's core features were implemented as follows;
 
-* **Text Generation**: `llama3-8b-8192` model was used for text responses generation. Llama, as a state of the art model excels at natural language understanding and generating relevant response. Langchain framework was used to configure the model and set up a conversation chain, where a predefined system prompt guide the model responses and behaviour. An in-memory conversation store, managed via a Python dictionary (which could be replaced by Redis for scaling), appends messages to the session ID to track conversation history. The `Groq API` serves the model due to its high throughput and low-latency performance, enabling quick and efficient text generation. *Groq is reported to serve LLM and other transformer-based models using LPU (Language Processing Unit) in place of GPU.*
+* **Text Generation**: `llama3-8b-8192` model was used for text responses generation. Llama, as a state of the art model excels at natural language understanding and generating relevant response. Langchain framework was used to configure the model and set up a conversation chain, I defined a system prompt to guide the model responses and behaviour. An in-memory conversation store, managed via a Python dictionary (which could be replaced with Redis for scaling), appends messages to the session ID to track conversation history. The `Groq API` serves the model due to its high throughput and low-latency performance, enabling quick and efficient text generation. *Groq is reported to serve LLM and other transformer-based models using LPU (Language Processing Unit) in place of GPU.*
   
 * **Speech-to-text**: The `whisper-large-v3-turbo` model handles the transcription of voice input to text. Known for its accuracy in speech recognition, this model is also served through the `Groq API`, which ensures low latency in converting spoken input to text. The transcribed text is then processed by the `llama3-8b-8192` model to generate a relevant response.
 
@@ -24,6 +24,8 @@ The application's core features were implemented as follows;
 
 The video creation time typically varies between 20-50 seconds, depending on the length of the text response.
 
+Unlike, Groq API which offers an enormous usage access to their API, D-ID usage is very limited for the free-tier plan which could result in limited generation of the avatar demonstration video
+
 
 ## Model Choice Decision Table
 
@@ -31,12 +33,12 @@ The model selections for powering various tasks in the application are summarize
 
 | Task                       | Choice                                   | Alternative                                            | Reason for choice                               |
 | -------------------------- |----------------------------------------  | ------------------------------------------------------ |-------------------------------------------------|
-| Text generation/LLM        | `llama3-8b-8192` with Groq API           | `llama3-8b-8192` with Transformers library             | Chose `llama3-8b-8192` + Groq API due to GPU unavailability and the application’s user scale. `llama3-8b-8192` + text streaming implementation using Transformers library provides a scalable and efficient alternative.|
+| Text generation/LLM        | `llama3-8b-8192` with Groq API           | `llama3-8b-8192` with Transformers library             | I chose `llama3-8b-8192` + Groq API due to GPU unavailability and the application’s user scale. `llama3-8b-8192` + text streaming implementation using Transformers library provides a scalable and efficient alternative.|
 | Speech-to-text             | `whisper-large-v3-turbo` with Groq API   | `whisper-large-v3-turbo` with Transformers library     | Similar to the LLM decision, `whisper-large-v3-turbo` is preferred with Groq API, balancing performance and scalability in the absence of GPU hardware.
 | Text-to-speech             | Elevenlabs API                           | `myshell-ai/MeloTTS-English` with Transformers library | Due to GPU limitations and the application's scale, ElevenLabs API was chosen for its high-quality TTS capabilities, though open-source ASR models would work similarly well with GPU hardware.
 | Avatar Demonstration       | D-ID API                                 | `LivePortrait` with custom code                        | Similar reason as priors applies. Due to GPU constraints for running the LivePortait code which performs on par with D-ID, the D-ID API was utilised instead
 
-I bear a personal opinion that using developer APIs for small-scale applications with limited users offers cost and resource savings compared to custom GPU deployments. For larger user bases, investing in custom deployments with GPU support may provide better control and scalability.
+I hold a personal opinion that using developer APIs for small-scale applications with limited users offers cost and resource savings compared to custom GPU deployments. For larger user bases, investing in custom deployments with GPU support may provide better control and scalability.
 
 This application runs on a CPU machine.
 
