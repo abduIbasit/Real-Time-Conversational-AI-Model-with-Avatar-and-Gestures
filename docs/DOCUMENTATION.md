@@ -24,7 +24,7 @@ The application's core features were implemented as follows;
 
 The video creation time typically varies between 20-50 seconds, depending on the length of the text response.
 
-Unlike, Groq API which offers an enormous usage access to their API, D-ID usage is very limited for the free-tier plan which could result in limited generation of the avatar demonstration video
+Unlike, Groq API which offers a more generous usage access to their API, D-ID usage is very limited for the free-tier plan.
 
 ## Conversation Flow
 
@@ -53,7 +53,7 @@ This application runs on a CPU machine.
 
 ## Cloud Deployment
 
-I deployed both the conversational AI WebSocket service and the frontend application to Google Cloud Platform (GCP), utilizing a virtual machine instance I configured specifically for this purpose.
+I deployed both the conversational AI WebSocket service and the frontend application to Google Cloud Platform (GCP), utilizing a virtual machine instance I configured specifically for this purpose. [Here](http://34.55.139.78/)
 
 ## Challenges Encountered
 
