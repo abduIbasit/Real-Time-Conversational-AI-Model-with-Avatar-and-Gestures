@@ -26,6 +26,15 @@ The video creation time typically varies between 20-50 seconds, depending on the
 
 Unlike, Groq API which offers an enormous usage access to their API, D-ID usage is very limited for the free-tier plan which could result in limited generation of the avatar demonstration video
 
+## Conversation Flow
+
+The conversation flow begins with the user inputs either text or voice. Text inputs are sent directly to the large language model, which processes the message to generate a contextually relevant response. For voice inputs, the application transcribes the audio into text using speech-to-text functionality before sending it to the LLM. The generated response from the LLM is sent to the user and also passed to the avatar demonstration module, which creates a synchronized video with lip-sync and gestures, delivering a dynamic and engaging interaction experience.
+
+*I developed a client-side application using React JS to provide a user interface for interacting with the application which can be accessed [here](http://34.55.139.78/). **Caveat:** My frontend development skill is not the best.*
+
+## Demonstration Video Link
+
+https://www.loom.com/share/fd413aade7e74cd5a54d1cb62b8dcd45
 
 ## Model Choice Decision Table
 
@@ -41,12 +50,6 @@ The model selections for powering various tasks in the application are summarize
 I hold a personal opinion that using developer APIs for small-scale applications with limited users offers cost and resource savings compared to custom GPU deployments. For larger user bases, investing in custom deployments with GPU support may provide better control and scalability.
 
 This application runs on a CPU machine.
-
-## Conversation Flow
-
-The conversation flow begins with the user inputs either text or voice. Text inputs are sent directly to the large language model, which processes the message to generate a contextually relevant response. For voice inputs, the application transcribes the audio into text using speech-to-text functionality before sending it to the LLM. The generated response from the LLM is sent to the user and also passed to the avatar demonstration module, which creates a synchronized video with lip-sync and gestures, delivering a dynamic and engaging interaction experience.
-
-*I developed a client-side application using React JS to provide a user interface for interacting with the application which can be accessed [here](http://34.55.139.78/). **Caveat:** My frontend development skill is not the best.*
 
 ## Cloud Deployment
 
