@@ -24,7 +24,7 @@ The application's core features were implemented as follows;
 
 The video creation time typically varies between 20-50 seconds, depending on the length of the text response.
 
-Unlike, Groq API which offers a more generous usage access to their API, D-ID usage is very limited for the free-tier plan.
+Unlike Groq API, which offers a more generous usage access to their API, D-ID usage is very limited for the free-tier plan.
 
 ## Conversation Flow
 
@@ -32,7 +32,7 @@ The conversation flow begins with the user inputs either text or voice. Text inp
 
 *I developed a client-side application using React JS to provide a user interface for interacting with the application which can be accessed [here](http://34.55.139.78/). **Caveat:** My frontend development skill is not the best.*
 
-## Demonstration Video Link
+## Demonstration Video
 
 https://www.loom.com/share/fd413aade7e74cd5a54d1cb62b8dcd45
 
